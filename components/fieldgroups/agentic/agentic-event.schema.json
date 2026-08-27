@@ -179,12 +179,12 @@
                   "xdm:skillID": {
                     "title": "Skill ID",
                     "type": "string",
-                    "description": "Identifier of the skill definition that was called; stable across invocations of the same skill"
+                    "description": "Identifier of the skill definition that was called."
                   },
                   "xdm:skillInvocationID": {
                     "title": "Skill Invocation ID",
                     "type": "string",
-                    "description": "Unique identifier for this individual skill invocation, stable across redeliveries of the same call. Intended as the de-duplication key when merging skill arrays downstream."
+                    "description": "Unique identifier for this individual skill invocation, consistent even with redeliveries of the same call. Intended as the de-duplication key when merging skill arrays downstream."
                   },
                   "xdm:name": {
                     "title": "Skill Name",
@@ -211,16 +211,16 @@
                     "type": "boolean",
                     "description": "Flag stating that the skill execution failed"
                   },
+                  "xdm:sequenceNumber": {
+                    "title": "Skill Sequence Number",
+                    "type": "integer",
+                    "description": "Monotonically increasing index of this skill call within its turn. Primary ordering key: consumers order skills by xdm:sequenceNumber, then xdm:timestamp as tiebreaker and fallback. Optional — populated when the producer can emit a per-turn counter"
+                  },
                   "xdm:timestamp": {
                     "title": "Skill Timestamp",
                     "type": "string",
                     "format": "date-time",
                     "description": "Time the skill was invoked, ISO 8601 UTC. Ordering key used after xdm:sequenceNumber (consumers order by sequenceNumber, then timestamp). Producers should always populate this; the requirement is enforced by convention rather than a hard schema constraint so partially-instrumented producers are not dropped at ingestion."
-                  },
-                  "xdm:sequenceNumber": {
-                    "title": "Skill Sequence Number",
-                    "type": "integer",
-                    "description": "Monotonically increasing index of this skill call within its turn. Primary ordering key: consumers order skills by xdm:sequenceNumber, then xdm:timestamp as tiebreaker/fallback. Optional — populated when the producer can emit a per-turn counter; fall back to xdm:timestamp when absent."
                   },
                   "xdm:skillSource": {
                     "title": "Skill Source",
@@ -243,12 +243,12 @@
                   "xdm:reasoning": {
                     "type": "object",
                     "title": "Skill Reasoning",
-                    "description": "Why this skill was called. Modeled as an object so structured reasoning members can be added additively; today it carries the free-text narration.",
+                    "description": "Why this skill was called.",
                     "properties": {
                       "xdm:narration": {
                         "title": "Reasoning Narration",
                         "type": "string",
-                        "description": "Natural-language explanation of why this skill was called. Free text; may be a truncated preview when sourced from model thinking output."
+                        "description": "Natural-language explanation of why this skill was called."
                       }
                     }
                   },
