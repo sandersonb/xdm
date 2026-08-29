@@ -199,7 +199,16 @@
                   "xdm:agentID": {
                     "title": "Agent ID",
                     "type": "string",
-                    "description": "Identifier of the agent this skill was executed under, correlating to xdm:agents[].xdm:agentID. Optional; absent when the skill was not invoked under a specific agent."
+                    "description": "Identifier of the agent that invoked this skill, correlating to xdm:agents[].xdm:agentID. Populated with the invoking agent: the root/orchestrator agent for main-loop skills, or the subagent for skills invoked by a subagent. Because subagents run in parallel, this is the grouping key consumers use to order skills within an agent."
+                  },
+                  "xdm:invocationSource": {
+                    "title": "Invocation Source",
+                    "type": "string",
+                    "description": "Whether this skill was invoked by the main agentic loop or by a subagent",
+                    "meta:enum": {
+                      "main": "Invoked by the harness main agentic loop",
+                      "subagent": "Invoked by a subagent"
+                    }
                   },
                   "xdm:score": {
                     "title": "Skill Matching Score",
@@ -214,7 +223,7 @@
                   "xdm:sequenceNumber": {
                     "title": "Skill Sequence Number",
                     "type": "integer",
-                    "description": "Monotonically increasing index of this skill call within its turn. Primary ordering key: consumers order skills by xdm:sequenceNumber, then xdm:timestamp as tiebreaker and fallback. Optional — populated when the producer can emit a per-turn counter"
+                    "description": "Monotonically increasing index of this skill call within a single agent execution — not turn-global, since subagents run in parallel. Ordering: consumers group by xdm:agentID, then order within each group by xdm:sequenceNumber, then xdm:timestamp as tiebreaker and fallback. Optional — populated when the producer can emit a per-execution counter"
                   },
                   "xdm:timestamp": {
                     "title": "Skill Timestamp",
