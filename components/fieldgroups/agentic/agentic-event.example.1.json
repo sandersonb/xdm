@@ -55,6 +55,7 @@
         "xdm:invocationSource": "main",
         "xdm:score": 0.89,
         "xdm:failed": true,
+        "xdm:errorReason": "No matching FAQ entry found.",
         "xdm:sequenceNumber": 2,
         "xdm:timestamp": "2026-02-05T12:00:00.450Z",
         "xdm:skillSource": "deferred",

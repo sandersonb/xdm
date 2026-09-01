@@ -220,6 +220,11 @@
                     "type": "boolean",
                     "description": "Flag stating that the skill execution failed"
                   },
+                  "xdm:errorReason": {
+                    "title": "Skill Error Reason",
+                    "type": "string",
+                    "description": "Reason the skill failed"
+                  },
                   "xdm:sequenceNumber": {
                     "title": "Skill Sequence Number",
                     "type": "integer",
